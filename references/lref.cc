@@ -1,16 +1,12 @@
 #include <cassert>
 #include <iostream>
 
-int &
-foo()
-{
+int &foo() {
   static int x = 1;
   return x;
 }
 
-int
-main()
-{
+int main() {
   int x = 1;
 
   // Can initialize an lvalue reference with an lvalue.
@@ -42,9 +38,9 @@ main()
 
   // IMPORTANT: Now z is an alias of x.  Whenever you see z, just
   // replace it with x to understand the code below.
-  
+
   // A reference has no address.  &z is the address of x.
-  assert (&z == &x);
+  assert(&z == &x);
 
   // There's no "reinitialization"!  It's an assignment to x.
   z = y;

@@ -1,17 +1,12 @@
 #include <utility>
 
-struct A
-{
+struct A {
   int &m_r;
 
-  A(int &r): m_r(r)
-  {
-  }
+  A(int &r) : m_r(r) {}
 };
 
-int
-main()
-{
+int main() {
   int i, j;
   A a(i), b(j);
 

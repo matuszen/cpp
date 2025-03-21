@@ -1,12 +1,10 @@
-#include <vector>
 #include <cassert>
+#include <vector>
 
 using namespace std;
 
-struct matrix
-{
-  struct proxy
-  {
+struct matrix {
+  struct proxy {
     // This is a proxy type to a data stored in vector<bool>.
     // Container vector<bool> cannot return a reference to a boolean
     // value (bool &), because it keeps the data bit-packed, and not
@@ -19,20 +17,13 @@ struct matrix
     // destroyed object.
     p_type m_normal, m_reverse;
 
-    proxy(p_type normal, p_type reverse):
-      m_normal(normal), m_reverse(reverse)
-    {
-    }
-    
-    // Casts to the boolean value.
-    operator bool() const
-    {
-      return m_normal;
-    }
+    proxy(p_type normal, p_type reverse)
+        : m_normal(normal), m_reverse(reverse) {}
 
-    proxy &
-    operator = (bool flag)
-    {
+    // Casts to the boolean value.
+    operator bool() const { return m_normal; }
+
+    proxy &operator=(bool flag) {
       // We have to set the flag for the normal and the revese.
       m_normal = flag;
       m_reverse = flag;
@@ -43,22 +34,16 @@ struct matrix
   // Vector of vectors.
   vector<vector<bool>> m_vov;
 
-  matrix(unsigned n): m_vov(n, vector<bool>(n))
-  {
-  }
+  matrix(unsigned n) : m_vov(n, vector<bool>(n)) {}
 
   // This function has to return a proxy, so that we can assign to it
   // a boolean value.
-  proxy
-  operator()(unsigned i, unsigned j)
-  {
+  proxy operator()(unsigned i, unsigned j) {
     return proxy(m_vov[i][j], m_vov[j][i]);
   }
 };
 
-int
-main()
-{
+int main() {
   matrix m(4);
   assert(m(0, 0) == false);
 

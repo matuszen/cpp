@@ -2,8 +2,7 @@
 
 class A {};
 
-int main()
-{
+int main() {
   A a;
 
   // How come an lvalue is not converted to an rvalue with the

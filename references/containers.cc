@@ -1,8 +1,7 @@
 #include <array>
 #include <vector>
 
-int main()
-{
+int main() {
   int x, y;
 
   // Containers can store pointers.
