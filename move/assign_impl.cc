@@ -3,8 +3,7 @@
 
 struct A {};
 
-struct B: A
-{
+struct B : A {
   std::string m_s;
 
   B() {}
@@ -13,8 +12,7 @@ struct B: A
 
   // The copy assignment operator has to copy the base and the member
   // objects of the source object.
-  B & operator=(const B &source)
-  {
+  B &operator=(const B &source) {
     A::operator=(source);
     // We can assign (as above) to the base object this way too:
     // static_cast<A &>(*this) = source;
@@ -30,8 +28,7 @@ struct B: A
   // The implementation of the move assignment operator has to use the
   // std::move function to move the base and the member objects of the
   // source object, otherwise they would be copied.
-  B & operator=(B &&source)
-  {
+  B &operator=(B &&source) {
     A::operator=(std::move(source));
     // We can assign (as above) to the base object this way too:
     // static_cast<A &>(*this) = std::move(source);
@@ -43,9 +40,7 @@ struct B: A
   // B &operator=(B &&) = default;
 };
 
-int
-main()
-{
+int main() {
   B b1, b2;
   b1 = b2;
   b1 = std::move(b2);

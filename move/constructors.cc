@@ -1,30 +1,22 @@
 #include <iostream>
 
-struct A
-{
-  A()
-  {
-    std::cout << "default ctor\n";
-  }
+struct A {
+  A() { std::cout << "default ctor\n"; }
 
   // The copy constructor has a single parameter of type const A &.
-  A(const A &)
-  {
+  A(const A &) {
     // Copy the data from object a to *this.
     std::cout << "copy-ctor\n";
   }
 
   // The move constructor has a single parameter of type A &&.
-  A(A &&)
-  {
+  A(A &&) {
     // Move the data from object a to *this.
     std::cout << "move-ctor\n";
   }
 };
 
-int
-main()
-{
+int main() {
   A a;
   // Calls the copy constructor.
   A b{a};

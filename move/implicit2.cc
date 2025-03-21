@@ -1,30 +1,18 @@
 #include <iostream>
 
-struct A
-{
+struct A {
   A() = default;
 
-  A(const A &)
-  {
-    std::cout << "copy-ctor\n";
-  }
+  A(const A &) { std::cout << "copy-ctor\n"; }
 
-  A(A &&)
-  {
-    std::cout << "move-ctor\n";
-  }
+  A(A &&) { std::cout << "move-ctor\n"; }
 };
 
-struct B: A {};
+struct B : A {};
 
-A foo()
-{
+A foo() {
   B b;
   return b;
 }
 
-int
-main()
-{
-  foo();
-}
+int main() { foo(); }

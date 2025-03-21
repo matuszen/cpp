@@ -2,24 +2,12 @@
 
 using namespace std;
 
-struct A
-{
+struct A {
   A() = default;
 
-  A(A &&t)
-  {
-    cout << "move-ctor\n";
-  }
-
+  A(A &&t) { cout << "move-ctor\n"; }
 };
-  
-A foo(A a)
-{
-  return a;
-}
 
-int
-main()
-{
-  foo(A());
-}
+A foo(A a) { return a; }
+
+int main() { foo(A()); }

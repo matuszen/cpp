@@ -1,23 +1,18 @@
 #include <iostream>
 
-struct A
-{
-  A &operator=(const A &)
-  {
+struct A {
+  A &operator=(const A &) {
     std::cout << __PRETTY_FUNCTION__ << std::endl;
     return *this;
   }
 
-  A &operator=(A &&)
-  {
+  A &operator=(A &&) {
     std::cout << __PRETTY_FUNCTION__ << std::endl;
     return *this;
   }
 };
 
-int
-main()
-{
+int main() {
   A x, y, z;
   // No biggie.
   x = y = z;
