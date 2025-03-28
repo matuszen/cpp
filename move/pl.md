@@ -140,24 +140,43 @@ przypisania:
 
 ### Typ wyniku przenoszącego operatora przypisania
 
-Jeżeli `a` i `b` są typu `T`, to wyrażenie `a = b = T()` powinno
-przenieść wartość z obiektu tymczasowego `T()` do `b`, a następnie
-powinno skopiować wartość z `b` do `a`.  To wyrażenie jest
+Jeżeli `x` i `y` są typu `A`, to wyrażenie `x = y = A()` powinno
+przenieść wartość z obiektu tymczasowego `A()` do `y`, a następnie
+powinno skopiować wartość z `y` do `x`.  To wyrażenie jest
 opracowywane od prawej do lewej strony, ponieważ operator przypisania
 ma prawe wiązanie.
 
 Dlatego przenoszący operator przypisania powinien zwracać
 l-referencję, a nie r-referencję.  Jeżeli operator zwracałby
 r-referencję, to wtedy to wyrażenie przenosiłoby wartość z obiektu
-tymczasowego `T()` do `b` (tak jak oczekujemy), ale potem
-*przenosiłoby* wartość z `b` do `a`, a przecież oczekiwalibyśmy
-kopiowania.
+tymczasowego `A()` do `y` (tak jak oczekujemy), ale potem
+*przenosiłoby* wartość z `y` do `x`, a przecież oczekiwalibyśmy
+kopiowania.  Implementacja poniżej.
 
-Co ciekawe, ponieważ wyrażenie z wywołaniem przenoszącego operatora
-przypisania (zadeklarowanego jako `T &operator=(T &&);`) jest
-l-wartością (ponieważ zwraca l-referencję), to możemy go użyć do
-inicjalizacji niestałej l-referencji: `T &l = T() = T();`, mimo że `T
-&l = T();` się nie kompiluje.
+```cpp
+{% include_relative assign_cat1.cc %}
+```
+
+Jednak z powyższą implementacją, wyrażenie `x = A() = A()` jest
+niepoprawnie opracowywane.  Wyrażenie `A() = A()` co prawda przeniesie
+wartość z prawego obiektu do lewego, ale to wyrażenie jest l-wartością
+(ponieważ przenoszący operator przypisania zwraca l-referencję), która
+będzie wyrażeniem źródłowym operatora przypisania do zmiennej `x`, ale
+operatora przypisania kopiującego, a nie oczekiwanego przenoszącego.
+
+Co ciekawe, ponieważ przenoszący operator przypisania zwraca
+l-referencję, to jego wynikiem możemy zainicjalizować niestałą
+l-referencję: `A &l = A() = A();`.  Taka inicjalizacja kompiluje się,
+choć nie powinna, skoro `A &l = A();` się nie kompiluje.  To jest
+uchybienie.
+
+Żeby zaradzić powyższemu niepoprawnemu opracowaniu i temu uchybieniu,
+należy przeciążyć przenoszący operator przypisania osobno dla
+l-wartości i r-wartości.  Poprawna implementacja poniżej.
+
+```cpp
+{% include_relative assign_cat2.cc %}
+```
 
 ### Implementacja przeciążeń operatora przypisania
 
@@ -271,13 +290,13 @@ Wszystkie składowe specjalne są niejawnie domyślnie zaimplementowane
 
 * *zasada nowego kodu*: składowe kopiujące będą **niejawnie usunięte**
   (więc będą brały udział w wyborze przeciążenia), jeżeli składowa
-  przenosząca została **jawnie zadeklarowana**: programista będzie
-  musiał jawnie zadeklarować składowe kopiujące, jeżeli są potrzebne.
+  przenosząca jest **jawnie zadeklarowana**: programista będzie musiał
+  zadeklarować składowe kopiujące, jeżeli są potrzebne.
 
 Te zasady mają na celu bezproblemową integrację semantyki
 przeniesienia zarówno w starym, jak i nowym kodzie.  Typ, który nie
 zarządza swoimi zasobami w jakiś nietypowy sposób (chodzi o składowe
-specjalne), będzie miał dostarczone domyślne implementacje semantyk
+specjalne), będzie miał zaimplementowane domyślnie semantyki
 kopiowania i przeniesienia.
 
 ## Typ tylko do przenoszenia
