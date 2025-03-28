@@ -1,5 +1,3 @@
-#include <iostream>
-
 int main() {
   // Error: an rvalue reference must be initialized.
   // int &&a;

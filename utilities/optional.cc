@@ -3,28 +3,17 @@
 
 // The assignment operator is implicityly deleted because of the
 // member reference.
-struct A
-{
+struct A {
   int &m_r;
 
-  A(int &r): m_r(r)
-  {
-    std::cout << "direct-initialization ctor\n";
-  }
+  A(int &r) : m_r(r) { std::cout << "direct-initialization ctor\n"; }
 
-  A(const A &a): m_r(a.m_r)
-  {
-    std::cout << "copy-ctor\n";
-  }
+  A(const A &a) : m_r(a.m_r) { std::cout << "copy-ctor\n"; }
 
-  A(A &&a): m_r(a.m_r)
-  {
-    std::cout << "move-ctor\n";
-  }
+  A(A &&a) : m_r(a.m_r) { std::cout << "move-ctor\n"; }
 };
 
-int main()
-{
+int main() {
   std::optional<A> oa;
 
   int x;

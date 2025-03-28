@@ -24,5 +24,5 @@ int main() {
   A() = A() = A();
 
   // This shouldn't compile.  Yet it does!
-  A &r = A() = A();
+  // A &r = A() = A();
 }

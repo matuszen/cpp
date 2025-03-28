@@ -26,3 +26,8 @@ struct B : public A {
   B(const B &) = delete;
   B &operator=(const B &) = delete;
 };
+
+int main() {
+  B b1("Hello");
+  B b2 = std::move(b1);
+}

@@ -1,5 +1,3 @@
-#include <utility>
-
 struct A {
   int &m_r;
 

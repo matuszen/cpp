@@ -22,39 +22,23 @@
 #ifndef PIMPL1
 #define PIMPL1
 
-#include <iostream>
-
-using namespace std;
-
-template <typename T>
-struct pimpl1
-{
+template <typename T> struct pimpl1 {
   // The nullptr literal is C++11.
-  pimpl1(): m_ptr(nullptr)
-  {}
+  pimpl1() : m_ptr(nullptr) {}
 
-  pimpl1(T *ptr): m_ptr(ptr)
-  {
-  }
+  pimpl1(T *ptr) : m_ptr(ptr) {}
 
-  pimpl1(const pimpl1 &src): m_ptr(src.m_ptr)
-  {
-    src.m_ptr = nullptr;
-  }
+  pimpl1(const pimpl1 &src) : m_ptr(src.m_ptr) { src.m_ptr = nullptr; }
 
   // C++14: returning by reference with the auto type specifier.
-  auto &operator=(const pimpl1 &src) const
-  {
+  auto &operator=(const pimpl1 &src) const {
     m_ptr = src.m_ptr;
     src.m_ptr = nullptr;
     return *this;
   }
 
-  ~pimpl1()
-  {
-    delete m_ptr;
-  }
-    
+  ~pimpl1() { delete m_ptr; }
+
   mutable T *m_ptr;
 };
 

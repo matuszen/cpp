@@ -3,14 +3,12 @@
 
 #include <iostream>
 
-using namespace std;
-
 struct A {
   int m_id;
 
-  A(int id) : m_id(id) { cout << "ctor: " << m_id << '\n'; }
+  A(int id) : m_id(id) { std::cout << "ctor: " << m_id << '\n'; }
 
-  ~A() { cout << "dtor: " << m_id << '\n'; }
+  ~A() { std::cout << "dtor: " << m_id << '\n'; }
 };
 
 // C++14: returning by value with the auto type specifier.
@@ -22,11 +20,11 @@ auto foo1(bool flag) {
   return flag ? a : b;
 }
 
-auto foo2(bool flag) {
+auto foo2(bool flag) -> pimpl2<A> {
   pimpl2 a(new A(1));
   pimpl2 b(new A(2));
 
-  return flag ? move(a) : move(b);
+  return flag ? std::move(a) : std::move(b);
 }
 
 int main() {
@@ -37,10 +35,10 @@ int main() {
     auto b = a;
   }
 
-  cout << "---\n";
+  std::cout << "---\n";
 
   {
     auto a = foo2(flag);
-    auto b = move(a);
+    auto b = std::move(a);
   }
 }
