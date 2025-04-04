@@ -1,23 +1,16 @@
 #include <iostream>
 
-int
-main()
-{
+int main() {
   int x = 1, y = 2;
 
   {
-    struct F
-    {
+    struct F {
       int x;
       int y;
 
-      F(int x, int y): x(x), y(y)
-      {
-      }
+      F(int x, int y) : x(x), y(y) {}
 
-      void
-      operator()()
-      {
+      void operator()() {
         x = 10;
         y = 20;
       }
@@ -28,4 +21,6 @@ main()
   }
 
   std::cout << "x = " << x << ", y = " << y << std::endl;
+
+  return 0;
 }

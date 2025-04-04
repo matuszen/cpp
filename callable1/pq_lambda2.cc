@@ -1,32 +1,27 @@
-#include <functional>
 #include <iostream>
 #include <queue>
 #include <vector>
 
-using namespace std;
-
-int
-main(void)
-{
+int main() {
   bool order;
 
-  cout << "Enter 0 or 1: ";
-  cin >> order;
-  
-  auto c = [order](const int &a, const int &b)
-           {return order ? a < b : a > b;};
+  std::cout << "Enter 0 or 1: ";
+  std::cin >> order;
 
-  priority_queue<int, vector<int>, decltype(c)> q(c);
+  auto c = [order](const int &a, const int &b) {
+    return order ? a < b : a > b;
+  };
+
+  std::priority_queue<int, std::vector<int>, decltype(c)> q(c);
 
   q.push(2);
   q.push(1);
   q.push(3);
 
-  while(!q.empty())
-    {
-      cout << q.top() << endl;
-      q.pop();
-    }
-  
+  while (!q.empty()) {
+    std::cout << q.top() << std::endl;
+    q.pop();
+  }
+
   return 0;
 }

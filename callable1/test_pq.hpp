@@ -5,17 +5,14 @@
 #include "timer.hpp"
 
 #include <algorithm>
-#include <random>
 #include <queue>
+#include <random>
 
-template <typename Q>
-void
-doit(Q &&q)
-{
+template <typename Q> void doit(Q &&q) {
   timer t("together");
 
   const auto N = 10000000;
-  
+
   {
     std::random_device dev;
     std::mt19937 gen(dev());
@@ -24,20 +21,19 @@ doit(Q &&q)
     timer t("pushing");
     std::string name = "abcdefghijklmnop";
 
-    for(auto i = N; i--;)
-      {
-	int index = distr(gen);
-	int year = index % 5 + 1;
+    for (auto i = N; i--;) {
+      int index = distr(gen);
+      int year = index % 5 + 1;
 
-	q.push(student{index, year, name});
+      q.push(student{index, year, name});
 
-	std::next_permutation(name.begin(), name.end());
-      }
+      std::next_permutation(name.begin(), name.end());
+    }
   }
 
   {
     timer t("popping");
-    while(!q.empty())
+    while (!q.empty())
       q.pop();
   }
 }

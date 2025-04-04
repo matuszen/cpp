@@ -1,33 +1,23 @@
-#include <functional>
 #include <iostream>
 #include <queue>
 
-using namespace std;
-
-struct CMP
-{
+struct CMP {
   bool m_order;
 
-  CMP(bool order): m_order(order)
-  {
-  }
+  CMP(bool order) : m_order(order) {}
 
-  bool
-  operator()(const int &a, const int &b) const
-  {
+  bool operator()(const int &a, const int &b) const {
     return m_order ? a < b : a > b;
   }
 };
 
-int
-main(void)
-{
+int main(void) {
   bool order;
 
-  cout << "Enter 0 or 1:";
-  cin >> order;
+  std::cout << "Enter 0 or 1:";
+  std::cin >> order;
 
-  priority_queue<int, vector<int>, CMP> q(CMP{order});
+  std::priority_queue<int, std::vector<int>, CMP> q(CMP{order});
   // The same as above.
   // priority_queue<int, vector<int>, CMP> q(order);
 
@@ -35,11 +25,10 @@ main(void)
   q.push(1);
   q.push(3);
 
-  while(!q.empty())
-    {
-      cout << q.top() << endl;
-      q.pop();
-    }
+  while (!q.empty()) {
+    std::cout << q.top() << std::endl;
+    q.pop();
+  }
 
   return 0;
 }

@@ -1,16 +1,12 @@
 #include <iostream>
 
-struct functor_type
-{
-  void operator()() const
-  {
-    std::cout << "Hello World from a functor!\n";
-  }
+struct functor_type {
+  void operator()() const { std::cout << "Hello World from a functor!\n"; }
 };
 
-int
-main()
-{
+int main() {
   const functor_type f;
   f();
+
+  return 0;
 }

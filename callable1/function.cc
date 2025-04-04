@@ -1,15 +1,12 @@
 #include <iostream>
 
-bool
-foo(const int &a, const int &b)
-{
+bool foo(const int &a, const int &b) {
   std::cout << "foo: a = " << a << ", b = " << b << '\n';
+  
   return true;
 }
 
-int
-main()
-{
+int main() {
   // I don't like the C syntax of the pointer to a function.
   bool (*f1a)(const int &, const int &) = foo;
   bool (*f1b)(const int &, const int &) = &foo;
@@ -27,7 +24,7 @@ main()
   // So f2a is replaced with foo, and foo decays into a pointer, which
   // we dereference to get a function to call.
   (*f2a)(10, 20);
-  
+
   // The C++ syntax for a function type.
   using foo_type = bool(const int &a, const int &b);
   // Pointers to a function.
@@ -41,4 +38,6 @@ main()
   (*f3b)(10, 20);
   f3c(10, 20);
   (*f3c)(10, 20);
+
+  return 0;
 }

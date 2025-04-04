@@ -7,29 +7,22 @@
 
 using namespace std;
 
-struct fun
-{
+struct fun {
   bool m_flag;
 
-  fun(bool flag): m_flag(flag)
-  {
-  }
+  fun(bool flag) : m_flag(flag) {}
 
-  bool operator()(const student &a, const student &b) const
-  {
+  bool operator()(const student &a, const student &b) const {
     return m_flag ? tie(a.m_year, a.m_name) < tie(b.m_year, b.m_name)
-		  : tie(a.m_year, a.m_name) > tie(b.m_year, b.m_name);
+                  : tie(a.m_year, a.m_name) > tie(b.m_year, b.m_name);
   }
 };
 
-int
-main()
-{
+int main() {
   bool flag = true;
-  auto c = [&flag](const student &a, const student &b)
-  {
+  auto c = [&flag](const student &a, const student &b) {
     return flag ? tie(a.m_year, a.m_name) < tie(b.m_year, b.m_name)
-		: tie(a.m_year, a.m_name) > tie(b.m_year, b.m_name);
+                : tie(a.m_year, a.m_name) > tie(b.m_year, b.m_name);
   };
 
   cout << "Compare with a functor -----------------------------\n";

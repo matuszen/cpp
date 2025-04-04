@@ -4,42 +4,37 @@
 #include <string>
 #include <vector>
 
-using namespace std;
+using places_type = std::map<std::string, int>;
 
-using places_type = map<string, int>;
-
-struct cmp
-{
+struct cmp {
   places_type &m_places;
 
-  cmp(places_type &places): m_places(places)
-  {
-  }
+  cmp(places_type &places) : m_places(places) {}
 
-  bool
-  operator()(const string &a, const string &b) const
-  {
+  bool operator()(const std::string &a, const std::string &b) const {
     return m_places[a] < m_places[b];
   }
 };
 
-int
-main()
-{
-  vector<string> v = {"Mo", "Ann", "Joe"};
+int main() {
+  std::vector<std::string> v = {"Mo", "Ann", "Joe"};
 
-  places_type places = {{"Mo", 3}, {"Ann", 1},
-                        {"Joe", 2}, {"Shmo", 4}};
+  places_type places = {{"Mo", 3}, {"Ann", 1}, {"Joe", 2}, {"Shmo", 4}};
 
   sort(v.begin(), v.end(), cmp(places));
 
-  for(auto &name: v)
-    cout << name << endl;
+  for (auto &name : v) {
+    std::cout << name << std::endl;
+  }
 
-  sort(v.begin(), v.end(), [&places](const string &a, const string &b)
-       {return places[a] < places[b];});
+  std::sort(v.begin(), v.end(),
+            [&places](const std::string &a, const std::string &b) {
+              return places[a] < places[b];
+            });
 
   // The same as above.
-  sort(v.begin(), v.end(), [&places](auto &a, auto &b)
-       {return places[a] < places[b];});
+  std::sort(v.begin(), v.end(),
+            [&places](auto &a, auto &b) { return places[a] < places[b]; });
+
+  return 0;
 }

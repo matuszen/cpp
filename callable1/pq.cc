@@ -1,22 +1,17 @@
 #include <iostream>
 #include <queue>
 
-using namespace std;
-
-int
-main(void)
-{
-  priority_queue<int> q;
+int main() {
+  std::priority_queue<int> q;
 
   q.push(2);
   q.push(1);
   q.push(3);
 
-  while(!q.empty())
-    {
-      cout << q.top() << endl;
-      q.pop();
-    }
-  
+  while (!q.empty()) {
+    std::cout << q.top() << std::endl;
+    q.pop();
+  }
+
   return 0;
 }

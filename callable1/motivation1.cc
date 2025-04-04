@@ -2,13 +2,13 @@
 #include <iostream>
 #include <vector>
 
-using namespace std;
+int main() {
+  std::vector v{3, 1, 2};
+  std::sort(v.begin(), v.end());
 
-int
-main()
-{
-  vector v{3, 1, 2};
-  sort(v.begin(), v.end());
-  for(const auto &e: v)
-    cout << e << endl;
+  for (const auto &e : v) {
+    std::cout << e << std::endl;
+  }
+
+  return 0;
 }
