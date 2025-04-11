@@ -1,20 +1,20 @@
 #include <deque>
 #include <iostream>
 
-using namespace std;
-
-int
-main()
-{
-  deque<int> a = {1, 2, 3};
+int main() {
+  std::deque<int> a = {1, 2, 3};
 
   auto i = std::begin(a);
-  cout << *i << endl;
-  cout << *(i + 2) << endl;
+
+  std::cout << *i << std::endl;
+  std::cout << *(i + 2) << std::endl;
+
   ++i;
-  cout << *(i - 1) << endl;
+  std::cout << *(i - 1) << std::endl;
+
   --i;
-  cout << std::boolalpha << (i == std::end(a)) << endl;
+  std::cout << std::boolalpha << (i == std::end(a)) << std::endl;
+
   i += 3;
-  cout << std::boolalpha << (i == std::end(a)) << endl;
+  std::cout << std::boolalpha << (i == std::end(a)) << std::endl;
 }

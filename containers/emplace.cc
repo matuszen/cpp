@@ -1,50 +1,38 @@
-#include <iostream>
 #include <forward_list>
+#include <iostream>
 #include <list>
-#include <set>
-#include <vector>
 #include <string>
+#include <vector>
 
-using namespace std;
+struct A {
+  std::string m_id;
 
-struct A
-{
-  string m_id;
-
-  A(string &&id): m_id(std::move(id))
-  {
-    cout << "ctor: " << m_id << '\n';
+  A(std::string &&id) : m_id(std::move(id)) {
+    std::cout << "ctor: " << m_id << '\n';
   }
 
-  ~A()
-  {
-    cout << "dtor: " << m_id << '\n';
-  }
+  ~A() { std::cout << "dtor: " << m_id << '\n'; }
 
   A(const A &a) = delete;
-  A& operator = (const A &a) = delete;
+  A &operator=(const A &a) = delete;
 
-  A(A &&a): m_id(std::move(a.m_id))
-  {
+  A(A &&a) : m_id(std::move(a.m_id)) {
     m_id += "-moved";
-    cout << "move-ctor: " << m_id << '\n';
+    std::cout << "move-ctor: " << m_id << '\n';
   }
 
-  A &
-  operator = (A &&a)
-  {
+  A &operator=(A &&a) {
     m_id = std::move(a.m_id) + "-moved";
-    cout << "move-assignment: " << m_id << '\n';
+    std::cout << "move-assignment: " << m_id << '\n';
     return *this;
   }
 };
 
-int main()
-{
-  cout << "vector: -----------------------------------------\n";
+int main() {
+  std::cout << "vector: -----------------------------------------\n";
 
   {
-    vector<A> v;
+    std::vector<A> v;
 
     // Uncommend the line below to prevent vector reallocation.
     // v.reserve(3);
@@ -52,40 +40,40 @@ int main()
     auto i1 = v.begin();
 
     // This becomes the first element in the vector.
-    cout << "Checkpoint V1\n";
+    std::cout << "Checkpoint V1\n";
     v.emplace_back("V1");
-    cout << "Checkpoint V2\n";
+    std::cout << "Checkpoint V2\n";
     v.emplace(v.begin(), "V2");
-    cout << "Checkpoint V3\n";
+    std::cout << "Checkpoint V3\n";
     v.emplace(v.end(), "V3");
 
-    cout << "The vector elements are:\n";
-    for(const auto &e: v)
-      cout << e.m_id << endl;
+    std::cout << "The vector elements are:\n";
+    for (const auto &e : v)
+      std::cout << e.m_id << std::endl;
 
-    cout << "The vector was relocated: " << boolalpha
-         << (i1 != v.begin()) << endl;
+    std::cout << "The vector was relocated: " << std::boolalpha
+              << (i1 != v.begin()) << std::endl;
   }
-  
-  cout << "list: -------------------------------------------\n";
+
+  std::cout << "list: -------------------------------------------\n";
 
   {
-    list<A> l;
+    std::list<A> l;
     // We can emplace at the front, and at the back, because the list
     // is doubly-linked.
     l.emplace_front("L1");
     l.emplace_back("L2");
     l.emplace(++(l.begin()), "L3");
 
-    cout << "The list elements are:\n";
-    for(const auto &e: l)
-      cout << e.m_id << endl;
+    std::cout << "The list elements are:\n";
+    for (const auto &e : l)
+      std::cout << e.m_id << std::endl;
   }
-  
-  cout << "forward_list: -----------------------------------\n";
+
+  std::cout << "forward_list: -----------------------------------\n";
 
   {
-    forward_list<A> f;
+    std::forward_list<A> f;
     f.emplace_front("L1");
     // We can emplace after an element, but not before, because it's a
     // singly-linked list.
@@ -96,10 +84,9 @@ int main()
 
     // f.emplace_back("L3");
 
-    cout << "The forward_list elements are:\n";
-    for(const auto &e: f)
-      cout << e.m_id << endl;
-
+    std::cout << "The forward_list elements are:\n";
+    for (const auto &e : f)
+      std::cout << e.m_id << std::endl;
   }
 
   return 0;

@@ -1,59 +1,35 @@
 #include <iostream>
 
-template <typename T>
-struct range_iter
-{
+template <typename T> struct range_iter {
   T m_i;
 
-  range_iter(T i): m_i(i)
-  {
-  }
+  range_iter(T i) : m_i(i) {}
 
-  range_iter &
-  operator++()
-  {
+  range_iter &operator++() {
     ++m_i;
     return *this;
   }
 
-  T
-  operator *() const
-  {
-    return m_i;
-  }
-  
-  bool
-  operator!=(const range_iter &i)
-  {
-    return m_i != *i;
-  }
+  T operator*() const { return m_i; }
+
+  bool operator!=(const range_iter &i) { return m_i != *i; }
 };
 
-template <typename T>
-struct range
-{
+template <typename T> struct range {
   T m_a;
   T m_b;
 
-  range(T a, T b): m_a(a), m_b(b)
-  {
-  }
+  range(T a, T b) : m_a(a), m_b(b) {}
 
-  range_iter<T> begin()
-  {
-    return range_iter<T>(m_a);
-  }
+  range_iter<T> begin() { return range_iter<T>(m_a); }
 
-  range_iter<T> end()
-  {
-    return range_iter<T>(m_b);
-  }
+  range_iter<T> end() { return range_iter<T>(m_b); }
 };
 
-using namespace std;
+int main() {
+  for (auto i : range<int>(1, 11)) {
+    std::cout << i << std::endl;
+  }
 
-int main()
-{
-  for(auto i: range<int>(1, 11))
-    cout << i << endl;
+  return 0;
 }

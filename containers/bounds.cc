@@ -3,17 +3,14 @@
 #include <string>
 #include <vector>
 
-using namespace std;
-
-int
-main()
-{
-  vector<string> v = {"a", "ab", "ba", "abc"};
+int main() {
+  std::vector<std::string> v = {"a", "ab", "ba", "abc"};
 
   // This functor sorts by the size of the string only.  Strings of
   // equal size are incomparable.  Incomparable are "ab" and "ba".
-  auto c = [](const string &a, const string &b)
-  {return a.size() < b.size();};
+  auto c = [](const std::string &a, const std::string &b) {
+    return a.size() < b.size();
+  };
 
   // Points to the first element such that c(element, "aa") is not
   // true, and this is "ab" in v.

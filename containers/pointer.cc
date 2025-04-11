@@ -1,21 +1,21 @@
 #include <iostream>
 
-using namespace std;
-
-int
-main()
-{
+int main() {
   // C-style array.
   int a[] = {1, 2, 3};
 
   // The same as: int *i = a;
   auto i = std::begin(a);
-  cout << *i << endl;
-  cout << *(i + 2) << endl;
+
+  std::cout << *i << std::endl;
+  std::cout << *(i + 2) << std::endl;
+
   ++i;
-  cout << *(i - 1) << endl;
+  std::cout << *(i - 1) << std::endl;
+
   --i;
-  cout << std::boolalpha << (i == std::end(a)) << endl;
+  std::cout << std::boolalpha << (i == std::end(a)) << std::endl;
+  
   i += 3;
-  cout << std::boolalpha << (i == std::end(a)) << endl;
+  std::cout << std::boolalpha << (i == std::end(a)) << std::endl;
 }

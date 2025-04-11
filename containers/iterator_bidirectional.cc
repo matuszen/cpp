@@ -1,24 +1,30 @@
 #include <deque>
-#include <list>
 #include <iostream>
+#include <list>
 
-using namespace std;
-
-int
-main()
-{
-  list<int> a = {1, 2, 3};
+int main() {
+  std::list<int> a = {1, 2, 3};
 
   auto i = std::begin(a);
-  cout << *i << endl;
+
+  std::cout << *i << std::endl;
+
   // That would not compile.
   // cout << *(i + 2) << endl;
+
   ++i;
+
   // That would not compile.
   // cout << *(i - 1) << endl;
+
   --i;
-  cout << std::boolalpha << (i == std::end(a)) << endl;
+
+  std::cout << std::boolalpha << (i == std::end(a)) << std::endl;
+
   // That would not compile.
   // i += 3;
-  cout << std::boolalpha << (i == std::end(a)) << endl;
+
+  std::cout << std::boolalpha << (i == std::end(a)) << std::endl;
+
+  return 0;
 }
